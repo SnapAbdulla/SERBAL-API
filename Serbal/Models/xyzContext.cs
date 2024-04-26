@@ -19,6 +19,10 @@ namespace Serbal.Models
         public virtual DbSet<RoleMst> RoleMsts { get; set; } = null!;
         public virtual DbSet<UserMst> UserMsts { get; set; } = null!;
         public virtual DbSet<EmployeeMst> EmployeeMsts { get; set; } = null!;
+        public virtual DbSet<PickUpRequest> PickUpRequests { get; set; } = null!;
+        public virtual DbSet<LocationPoint> LocationPoints { get; set; } = null!;
+        public virtual DbSet<DailyWeight> DailyWeights { get; set; } = null!;
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

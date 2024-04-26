@@ -1,6 +1,6 @@
 ﻿namespace Serbal.Models
 {
-    public class EmployeeMst
+    public partial class EmployeeMst
     {
         public int EmployeeID { get; set; }
         public string EmployeeCode { get; set; }
