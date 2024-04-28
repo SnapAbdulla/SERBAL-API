@@ -1,18 +1,19 @@
-﻿namespace Serbal.Models
+﻿using System.ComponentModel.DataAnnotations;
+namespace Serbal.Models
 {
     public partial class UserMst
     {
+        [Key]
         public int UserID { get; set; }
 
-        public string EmployeeID { get; set; }
+        public int EmployeeID { get; set; }
 
         public string UserName { get; set; }
 
         public string EmailAddress { get; set; }
 
         public string Password { get; set; }
-
-        public string UserType { get; set; }
+        public int RoleID { get; set; }
 
         public bool IsActive { get; set; }
 

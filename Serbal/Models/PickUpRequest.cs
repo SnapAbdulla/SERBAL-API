@@ -1,7 +1,10 @@
-﻿namespace Serbal.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Serbal.Models
 {
     public partial class PickUpRequest
     {
+        [Key]
         public int PickupID { get; set; }
 
         public string Name { get; set; }
