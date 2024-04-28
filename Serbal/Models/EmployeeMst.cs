@@ -1,7 +1,10 @@
-﻿namespace Serbal.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Serbal.Models
 {
     public partial class EmployeeMst
     {
+        [Key]
         public int EmployeeID { get; set; }
         public string EmployeeCode { get; set; }
         public string EmployeeName { get; set; }

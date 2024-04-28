@@ -17,14 +17,14 @@ namespace Serbal.Controllers
         [HttpGet]
         public async Task<ActionResult<List<DailyWeight>>> GetDailyWeight()
         {
-            var data = await context.DailyWeights.ToListAsync();
+            var data = await context.DailyWeight.ToListAsync();
             return Ok(data);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<DailyWeight>> GetDailyWeightID(int id)
         {
-            var dailyWeight = await context.DailyWeights.FindAsync(id);
+            var dailyWeight = await context.DailyWeight.FindAsync(id);
             if (dailyWeight == null)
             {
                 return NotFound();
@@ -34,7 +34,7 @@ namespace Serbal.Controllers
         [HttpPost]
         public async Task<ActionResult<DailyWeight>> CreateDailyWeight(DailyWeight dailyWeight)
         {
-            await context.DailyWeights.AddAsync(dailyWeight);
+            await context.DailyWeight.AddAsync(dailyWeight);
             await context.SaveChangesAsync();
             return Ok(dailyWeight);
         }
@@ -53,12 +53,12 @@ namespace Serbal.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<DailyWeight>> DeleteDailyWeight(int id)
         {
-            var dailyWeight = await context.DailyWeights.FindAsync(id);
+            var dailyWeight = await context.DailyWeight.FindAsync(id);
             if (dailyWeight == null)
             {
                 return NotFound();
             }
-            context.DailyWeights.Remove(dailyWeight);
+            context.DailyWeight.Remove(dailyWeight);
             await context.SaveChangesAsync();
             return Ok();
         }

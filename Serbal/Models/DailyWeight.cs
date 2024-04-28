@@ -1,7 +1,10 @@
-﻿namespace Serbal.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Serbal.Models
 {
     public partial class DailyWeight
     {
+        [Key]
         public int WeightID { get; set; }
 
         public DateTime? Date { get; set; }
@@ -10,12 +13,9 @@
 
         public int? DriverID { get; set; }
 
-        public TimeSpan? ArrivelTime { get; set; }
+        public DateTime? ArrivelTime { get; set; }
 
         public int? ZoneLocation { get; set; }
-
-        public string Longitude { get; set; }
-
         public decimal? Weight { get; set; }
 
         public decimal? TruckWeight { get; set; }

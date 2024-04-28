@@ -17,14 +17,14 @@ namespace Serbal.Controllers
         [HttpGet]
         public async Task<ActionResult<List<EmployeeMst>>> GetEmployeeMst()
         {
-            var data = await context.EmployeeMsts.ToListAsync();
+            var data = await context.EmployeeMst.ToListAsync();
             return Ok(data);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<EmployeeMst>> GetEmployeeMstID(int id)
         {
-            var employeeMst= await context.EmployeeMsts.FindAsync(id);
+            var employeeMst= await context.EmployeeMst.FindAsync(id);
             if (employeeMst == null)
             {
                 return NotFound();
@@ -34,7 +34,7 @@ namespace Serbal.Controllers
         [HttpPost]
         public async Task<ActionResult<EmployeeMst>> CreateEmployeeMst(EmployeeMst EmployeeMst)
         {
-            await context.EmployeeMsts.AddAsync(EmployeeMst);
+            await context.EmployeeMst.AddAsync(EmployeeMst);
             await context.SaveChangesAsync();
             return Ok(EmployeeMst);
         }
@@ -53,12 +53,12 @@ namespace Serbal.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<EmployeeMst>> DeleteEmployeeMst(int id)
         {
-            var EmployeeMst = await context.EmployeeMsts.FindAsync(id);
+            var EmployeeMst = await context.EmployeeMst.FindAsync(id);
             if (EmployeeMst == null)
             {
                 return NotFound();
             }
-            context.EmployeeMsts.Remove(EmployeeMst);
+            context.EmployeeMst.Remove(EmployeeMst);
             await context.SaveChangesAsync();
             return Ok();
         }
