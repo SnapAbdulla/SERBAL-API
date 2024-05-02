@@ -22,6 +22,7 @@ namespace Serbal.Models
         public virtual DbSet<PickUpRequest> PickUpRequests { get; set; } = null!;
         public virtual DbSet<LocationPoint> LocationPoints { get; set; } = null!;
         public virtual DbSet<DailyWeight> DailyWeight { get; set; } = null!;
+        public virtual DbSet<LookupMst> LookupMst { get; set; } = null!;
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
