@@ -18,7 +18,7 @@ namespace Serbal.Controllers
         [HttpPost]
         public ActionResult<UserMst> Login([FromBody] LoginModel loginModel)
         {
-            var user = _context.UserMsts.FirstOrDefault(u => u.UserName == loginModel.UserName && u.Password == loginModel.Password);
+            var user = _context.UserMsts.FirstOrDefault(u => u.EmailAddress == loginModel.UserName && u.Password == loginModel.Password);
 
             if (user == null)
             {
@@ -30,7 +30,7 @@ namespace Serbal.Controllers
         [HttpPost("ChangePassword")]
         public ActionResult ChangePassword([FromBody] ChangePasswordModel changePasswordModel)
         {
-            var user = _context.UserMsts.FirstOrDefault(u => u.UserName == changePasswordModel.UserName);
+            var user = _context.UserMsts.FirstOrDefault(u => u.EmailAddress == changePasswordModel.UserName);
             if (user == null)
             {
                 return NotFound("User not found ");
