@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Serbal.Models;
+using Serbal.Utility;
 using System.Linq;
+using static System.Net.WebRequestMethods;
 
 namespace Serbal.Controllers
 {
@@ -27,6 +30,7 @@ namespace Serbal.Controllers
 
             return Ok(user);
         }
+
         [HttpPost("ChangePassword")]
         public ActionResult ChangePassword([FromBody] ChangePasswordModel changePasswordModel)
         {
@@ -35,7 +39,7 @@ namespace Serbal.Controllers
             {
                 return NotFound("User not found ");
             }
-            if(user.Password != changePasswordModel.CurrentPassword)
+            if (user.Password != changePasswordModel.CurrentPassword)
             {
                 return BadRequest("Incorrect Password");
 
@@ -45,5 +49,62 @@ namespace Serbal.Controllers
 
             return Ok("Password changed successfully");
         }
+
+        [HttpPut("ValidateOtp")]
+        public IActionResult ValidateOtp(string userName)
+        {
+            try
+            {
+                int otp = OTPManager.GenerateOTP(userName);
+                SentOTP.SendOTP(otp, userName);
+                return Ok("OTP generated and sent successfully");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An error occurred while processing your request: " + ex.Message);
+            }
+        }
+
+
+        [HttpPut("ForgetPassword")]
+        public async Task<bool> ForgetPassword([FromBody] ForgotPassword forgetPasswordModel)
+        {
+            try
+            {
+                var user = _context.UserMsts.FirstOrDefault(u => u.UserName == forgetPasswordModel.UserName);
+                if (user != null)
+                {
+                    if (OTPManager.ValidateOTP(forgetPasswordModel.UserName, forgetPasswordModel.otp))
+                    {
+                        if (forgetPasswordModel.enterPassword == forgetPasswordModel.reenterPassword && user.Password != forgetPasswordModel.enterPassword)
+                        {
+                            user.Password = forgetPasswordModel.enterPassword;
+                            await _context.SaveChangesAsync();
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine("An error occurred while processing the request: " + ex.Message);
+                return false;
+            }
+        }
     }
 }
+
+
